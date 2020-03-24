@@ -59,12 +59,20 @@ export default ({ restaurants }) => {
 }
 
 const Tooltip = ({ tooltip, setTooltip }) => {
+  const [showLongDescription, setShowLongDescription] = useState(false)
+  useEffect(() => {
+    setShowLongDescription(false)
+  }, [tooltip])
+
   const name = tooltip.name || undefined
-  const description = tooltip.description
-    ? tooltip.description.length > 140
-      ? tooltip.description.slice(0, 140) + ' ...'
+  const description =
+    tooltip.description && tooltip.description.length > 140
+      ? showLongDescription
+        ? tooltip.description
+        : tooltip.description.slice(0, 140) + ' ...'
       : tooltip.description
-    : undefined
+      ? tooltip.description
+      : undefined
   const offerings = tooltip.offerings || undefined
   const delivery = tooltip.delivery || false
   const phone = tooltip.phone || undefined
@@ -77,14 +85,17 @@ const Tooltip = ({ tooltip, setTooltip }) => {
       tooltip.positionData.results[0].geometry &&
       tooltip.positionData.results[0].geometry.location) ||
     false
+
   return (
     <AnimatePresence>
       {tooltip && position && (
         <OverlayView
+          key={position}
           position={position}
           mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
         >
           <motion.div
+            key={tooltip.name}
             initial={{ opacity: 0, y: -28 }}
             animate={{ opacity: 1, y: -36 }}
             exit={{ opacity: 0, y: -32 }}
@@ -100,7 +111,22 @@ const Tooltip = ({ tooltip, setTooltip }) => {
               </button>
 
               {name && <h3 className="text-base mb-2">{name}</h3>}
-              {description && <p className="text-xs mb-3">{description}</p>}
+              {description && (
+                <p className="text-xs mb-3">
+                  {description}
+                  {tooltip.description.length > 140 && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setShowLongDescription(!showLongDescription)
+                      }
+                      className="underline ml-1"
+                    >
+                      {showLongDescription ? 'View less' : 'View more'}
+                    </button>
+                  )}
+                </p>
+              )}
               {offerings && !!offerings.length && (
                 <ul className="-m-1 mb-2">
                   {offerings.map(label => (
