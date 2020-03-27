@@ -20,8 +20,8 @@ export default () => {
             </h2>
             <p className="max-w-xl text-navy-light text-lg mb-4">
               {content.description}
-              <a href="https://cellars.nyc" target="_blank" rel="noopener">
-                cellars.nyc
+              <a href="https://dineineberlin.com" target="_blank" rel="noopener">
+                dineinberlin.com
               </a>
               .
             </p>
@@ -45,15 +45,15 @@ export default () => {
 }
 
 const pageContent = {
-  'da-DK': {
-    title: 'Om os',
-    description: `COVID-19 krisen har ramt restaurant-scenen i København. Mange af dem er begyndt at tilbyde take-away som en respons. Vi har lavet den her side for at sprede ordet – inspireret af `,
-    contact: 'De fleste henvendelser til ',
-    webmaster: 'Ris og ros til hjemmesiden til ',
+  'de-DE': {
+    title: 'Über uns',
+    description: `Die COVID-19 Krise hat Berlin's restaurant szene hart getroffen. Viele Establissements bieten Lieferungen ihrer normalen oder neuer Gerichte an. WIr haben diese Seite gebaut um ihnen zu helfen mehr Leute zu erreichen - Inspierrert von`,
+    contact: 'Contact',
+    webmaster: 'Technik ',
   },
   'en-GB': {
     title: 'About',
-    description: `The COVID-19 crisis has hit the Copenhagen restaurant scene hard. Many establishments have started offering take-out. We've made this site to help spread the word — inspired by `,
+    description: `The COVID-19 crisis has hit the Berlin restaurant scene hard. Many establishments have started offering take-out. We've made this site to help spread the word — inspired by `,
     contact: 'Most inquiries: ',
     webmaster: 'Site feedback: ',
   },

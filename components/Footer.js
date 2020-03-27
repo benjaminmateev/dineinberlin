@@ -67,11 +67,11 @@ const NavLink = ({ href, label }) => (
 )
 
 const pageContent = {
-  'da-DK': {
-    prefix: 'Et initiativ af',
-    and: 'og',
-    built: 'Udviklet af',
-    os: 'Det er open source',
+  'de-DE': {
+    prefix: 'Eine Initagtive von',
+    and: 'und',
+    built: 'Erstellt von',
+    os: 'Es ist Open Source',
   },
   'en-GB': {
     prefix: 'An initiative by',
