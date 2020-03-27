@@ -2,7 +2,7 @@ import { useState, createContext, useContext } from 'react'
 
 const languages = {
   'en-GB': 'Switch to English',
-  'da-DK': 'Vis på dansk',
+  'de-DE': 'Zu Deutsch wechseln',
 }
 
 export const LanguageContext = createContext()

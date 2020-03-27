@@ -8,10 +8,10 @@ import { LanguageContext } from './LanguageSelector'
 
 const content = {
   restaurants: {
-    'da-DK': {
-      label: 'Restauranter',
-      map: 'Se på kort',
-      list: 'Se på liste',
+    'de-DE': {
+      label: 'Restaurants',
+      map: 'Kartenansicht',
+      list: 'Listenansicht',
     },
     'en-GB': {
       label: 'Restaurants',
@@ -19,11 +19,11 @@ const content = {
       list: 'List view',
     },
   },
-  about: { 'da-DK': 'Om os', 'en-GB': 'About' },
+  about: { 'de-DE': 'Über uns', 'en-GB': 'About' },
   submit: {
-    'da-DK': {
-      sm: 'Tilføj',
-      else: 'Tilføj din restaurant',
+    'de-DE': {
+      sm: 'Abschicken',
+      else: 'Dein Restaurant hinzufügen',
     },
     'en-GB': {
       sm: 'Submit',
@@ -50,7 +50,7 @@ export default () => {
                 🍷
               </span>
               <h2 className="hidden sm:inline-block font-extrabold text-2xl">
-                Dine CPH
+                Dine in - Berlin
               </h2>
             </a>
           </Link>
