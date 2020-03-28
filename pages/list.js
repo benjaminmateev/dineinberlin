@@ -15,6 +15,7 @@ export default ({ restaurants }) => {
           <main className="flex-auto px-3 pb-16">
             <div className="max-w-6xl mx-auto">
               <ul className="flex flex-wrap -m-3">
+
                 {restaurants.map(restaurant => {
                   if (
                     restaurant.display &&
@@ -26,6 +27,7 @@ export default ({ restaurants }) => {
                       <ListItem key={restaurant.name} restaurant={restaurant} />
                     ) 
                 })}
+
               </ul>
             </div>
           </main>
@@ -79,7 +81,7 @@ const ListItem = ({ restaurant }) => {
         <div className="flex-auto">
           {name && <h3 className="text-xl sm:text-2xl mb-2">{name}</h3>}
           {address && <p className="text-xs sm:text-sm mb-2">{address}</p>}
-          {phone && <p className="text-sm mb-4">{phone}</p>}
+          {phone && <p className="text-sm mb-4"><a href={"tel:" + phone}>{phone}</a></p>}
           {description && (
             <p className="max-w-2xl text-sm sm:text-base mb-4">{description}</p>
           )}
