@@ -57,14 +57,14 @@ export default () => {
 
 const pageContent = {
   'de-DE': {
-    titleBlue: 'Unterstütze Restaurants in Berlin',
+    titleBlue: 'Unterstütze Restaurants in Berlin mit',
     titlePink: 'Lieferung zu dir nachhause',
     description: `Deine geliebten Food Spots kämpfen gerade um ihre Existenz aufgrund der Krise - aber sie kochen weiter. Helf ihnen weiter zu bestehen in dem du Essen zum abholen oder liefern bestellst.`,
     find: 'Finde Restaurants',
     add: 'Füg dein Restaurant hinzu',
   },
   'en-GB': {
-    titleBlue: 'Support restaurants in Copenhagen by',
+    titleBlue: 'Support restaurants in Berlin by',
     titlePink: 'getting take-out',
     description: `Your local food joints are struggling during the current crisis — but they're still cooking! Help them keep the lights on, by getting take-out from the best restaurants in Berlin.`,
     find: 'Find restaurants',
