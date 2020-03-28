@@ -15,8 +15,6 @@ export default ({ restaurants }) => {
           <main className="flex-auto px-3 pb-16">
             <div className="max-w-6xl mx-auto">
               <ul className="flex flex-wrap -m-3">
-                Test
-
                 {restaurants.map(restaurant => {
                   if (
                     restaurant.display &&
