@@ -1,0 +1,10 @@
+/* Webfont: Modernist Bold */
+@font-face {
+  font-family:"Modernist Bold";
+  src: 
+    url('Sk-Modernist-Bold.otf') format('woff2'),
+    url('Sk-Modernist-Bold.otf') format('woff');
+  text-transform: uppercase;
+  font-style: normal;
+  font-weight: normal;
+}

@@ -1,5 +1,5 @@
 @import url('https://rsms.me/inter/inter.css');
-@import url('/optician/optician.css');
+@import url('/modernist/modernist.css');
 
 /* purgecss start ignore */
 
@@ -47,7 +47,8 @@ h3,
 h4,
 h5,
 h6 {
-  @apply font-optician tracking-tight;
+  @apply font-modernist tracking-tight;
+  text-transform: uppercase;
 }
 p {
   @apply leading-normal;
