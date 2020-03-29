@@ -13,9 +13,15 @@ export default () => {
         <div className="w-full mb-6 md:mb-0">
           <p className="mb-3">
             {content.createdby}{' '}
-           
-            Benjamin Mateev für Berlin
-            
+           <a
+             href="https://benmateev.com"
+             target="_blank"
+             rel="noopener"
+            >
+              Benjamin Mateev
+            </a>
+            {' '}
+            für Berlin
             {'. '}
           </p>
           <p className="mb-3">
