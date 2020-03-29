@@ -12,22 +12,25 @@ export default () => {
       <div className="flex flex-wrap md:flex-no-wrap items-baseline border-t-2 border-sand max-w-6xl py-12 mx-auto">
         <div className="w-full mb-6 md:mb-0">
           <p className="mb-3">
-            {content.prefix}{' '}
-            {
-              // <a href="https://techvaernet.dk" target="_blank" rel="noopener">
-            }
-            Techværnet
-            {
-              // </a>
-            }{' '}
-            {content.and}{' '}
+            {content.createdby}{' '}
+           
+            Benjamin Mateev für Berlin
+            
+            {'. '}
+          </p>
+          <p className="mb-3">
+            {content.inspired}{' '}
+            
             <a
-              href="https://shop.empiricalspirits.co/"
+              href="https://dinecph.dk/"
               target="_blank"
               rel="noopener"
             >
-              Empirical Spirits
+              Dine CPH
             </a>
+
+            , Techværnet & Empirical Spirits
+
             {'. '}
             {content.built}{' '}
             <a
@@ -68,15 +71,15 @@ const NavLink = ({ href, label }) => (
 
 const pageContent = {
   'de-DE': {
-    prefix: 'Eine Initagtive von',
-    and: 'und',
-    built: 'Erstellt von',
+    createdby: 'Umgsetzt von',
+    inspired: 'Inspiriert von ',
+    built: 'Im Original von',
     os: 'Es ist Open Source',
   },
   'en-GB': {
-    prefix: 'An initiative by',
-    and: 'and',
-    built: 'Built by',
+    createdby: 'Created by',
+    inspired: 'Inspired by',
+    built: 'Originally built by',
     os: "It's open source",
   },
 }
