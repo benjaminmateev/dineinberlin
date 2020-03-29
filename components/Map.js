@@ -31,7 +31,7 @@ export default ({ restaurants }) => {
           clickableIcons={false}
           mapContainerClassName="border-t border-sand"
           mapContainerStyle={{ height: 'calc( 100vh - 85px)' }}
-          zoom={11}
+          zoom={12}
         >
           <Tooltip tooltip={tooltip} setTooltip={setTooltip} />
           {restaurants.map(restaurant => {
