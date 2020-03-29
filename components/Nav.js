@@ -53,7 +53,7 @@ export default () => {
                 className="hidden md:block w-8 h-8"
               /> 
               </span>
-              <h2 className="hidden sm:inline-block font-extrabold text-2xl">
+              <h2 className="hidden sm:inline-block text-2xl">
                 Dine in Berlin
               </h2>
             </a>
