@@ -47,10 +47,14 @@ export default () => {
                 style={{ transform: 'rotate(15deg) translateY(-2px)' }}
                 className="text-3xl sm:mr-3"
               >
-                🍷
+              <img
+                src="/assets/dineinbear.svg"
+                alt="Dine-in Bear"
+                className="hidden md:block w-8 h-8"
+              /> 
               </span>
               <h2 className="hidden sm:inline-block font-extrabold text-2xl">
-                Dine in - Berlin
+                Dine in Berlin
               </h2>
             </a>
           </Link>

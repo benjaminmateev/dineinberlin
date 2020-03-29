@@ -9,9 +9,9 @@ module.exports = {
       // 'navy-light': '#172c66', // elements paragraph
       // teal: '#8bd3dd', // illustration secondary 
       // white: '#fff', // white
-      // sand: '#f3d2c1',
       // --
       // https://www.happyhues.co/palettes/15
+      sand: '#f3d2c1',
       'sand-light': '#faeee7', // elements background
       pink: '#ff8ba7', // elements button
       navy: '#33272a', // elements button text
