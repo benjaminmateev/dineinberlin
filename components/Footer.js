@@ -20,7 +20,7 @@ export default () => {
             >
               Benjamin Mateev
             </a>
-            {' '}
+            {' '}and Martin Kaelble{' '}
             {content.for}{' '}
              Berlin
             {'. '}
