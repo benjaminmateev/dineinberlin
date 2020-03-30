@@ -21,7 +21,8 @@ export default () => {
               Benjamin Mateev
             </a>
             {' '}
-            für Berlin
+            {content.for}{' '}
+             Berlin
             {'. '}
           </p>
           <p className="mb-3">
@@ -35,8 +36,22 @@ export default () => {
               Dine CPH
             </a>
 
-            , Techværnet & Empirical Spirits
-
+            ,
+            <a
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              target="_blank"
+              rel="noopener"
+            > 
+            Techværnet 
+            </a>
+            {' '}&{' '} 
+            <a
+              href="https://shop.empiricalspirits.co/"
+              target="_blank"
+              rel="noopener"
+            > 
+            Empirical Spirits
+            </a>
             {'. '}
             {content.built}{' '}
             <a
@@ -78,12 +93,14 @@ const NavLink = ({ href, label }) => (
 const pageContent = {
   'de-DE': {
     createdby: 'Umgsetzt von',
+    for: "für",
     inspired: 'Inspiriert von ',
     built: 'Im Original von',
     os: 'Es ist Open Source',
   },
   'en-GB': {
     createdby: 'Created by',
+    for: "for",
     inspired: 'Inspired by',
     built: 'Originally built by',
     os: "It's open source",
