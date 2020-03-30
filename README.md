@@ -1,4 +1,4 @@
-# Dine CPH readme
+# Dine In Berlin readme
 
 ## Prerequisites
 
@@ -18,6 +18,10 @@ You will need:
 
 Run `npm run dev` (or `yarn dev`) to start the development loop.
 
-## Development
+## Deployment
 
 The Copenhagen project is deployed with [Zeit Now](https://zeit.co/home), utilising [Now Secrets](https://zeit.co/docs/v2/build-step#using-environment-variables-and-secrets) (see now.json file), but could be deployed wherever.
+
+## Forked and Inspired by
+
+This project was forked and inspired by https://github.com/covid19-group/dinecph, which was built by https://github.com/sjwinther. Big shoutout!
