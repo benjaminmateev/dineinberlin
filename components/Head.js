@@ -3,7 +3,7 @@ import Head from 'next/head'
 export default ({ children }) => {
   const title = 'Dine In Berlin'
   const site_url = 'https://dineinberlin.com'
-  const fb_app_id = "106505784339346"
+  const fb_app_id = "571317996836972"
   const description =
     "Your local food joints are struggling during the current crisis — but they're still cooking! Help them keep the lights on, by getting take-out from the best restaurants in Berlin."
   return (
