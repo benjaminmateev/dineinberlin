@@ -3,6 +3,7 @@ import Head from 'next/head'
 export default ({ children }) => {
   const title = 'Dine In Berlin'
   const site_url = 'https://dineinberlin.com'
+  const fb_app_id = "106505784339346"
   const description =
     "Your local food joints are struggling during the current crisis — but they're still cooking! Help them keep the lights on, by getting take-out from the best restaurants in Berlin."
   return (
@@ -10,7 +11,9 @@ export default ({ children }) => {
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <link rel="icon" href="https://dineinberlin.com/favicon.png" />
       <title>{title}</title>
+      <meta property="og:type" content="website" />
       <meta name="description" content={description} />
+      <meta property="fb:app_id" content={fb_app_id} />
       <meta property="og:title" content={title} />
       <meta property="og:site_name" content={title} />
       <meta property="og:description" content={description} />
