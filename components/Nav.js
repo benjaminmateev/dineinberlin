@@ -43,13 +43,13 @@ export default () => {
             <a className="inline-flex items-center mx-3 sm:mr-6">
               <span
                 role="img"
-                aria-label="Wine glass"
+                aria-label="Bear"
                 style={{ transform: 'rotate(15deg) translateY(-2px)' }}
-                className="text-3xl sm:mr-3"
+                className="bear text-3xl sm:mr-3"
               >
               <img
                 src="/assets/dineinbear.svg"
-                alt="Dine-in Bear"
+                alt="Dine In Bear"
                 className="hidden md:block w-8 h-8"
               /> 
               </span>

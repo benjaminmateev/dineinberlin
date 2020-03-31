@@ -65,8 +65,8 @@ export default ({ restaurants }) => {
 const Tooltip = ({ tooltip, setTooltip }) => {
   const name = tooltip.name || undefined
   const description = tooltip.description
-    ? tooltip.description.length > 140
-      ? tooltip.description.slice(0, 140) + ' ...'
+    ? tooltip.description.length > 280
+      ? tooltip.description.slice(0, 280) + ' ...'
       : tooltip.description
     : undefined
   const offerings = tooltip.offerings || undefined
