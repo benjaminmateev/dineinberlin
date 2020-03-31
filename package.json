@@ -15,7 +15,7 @@
     "airtable": "^0.8.1",
     "cssnano": "^4.1.10",
     "dotenv": "^8.2.0",
-    "framer-motion": "^1.10.0",
+    "framer-motion": "^1.10.3",
     "gray-matter": "^4.0.2",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^9.3.3",

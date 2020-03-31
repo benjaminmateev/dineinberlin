@@ -57,9 +57,9 @@ export default () => {
 
 const pageContent = {
   'de-DE': {
-    titleBlue: 'Unterstütze Restaurants in Berlin mit',
-    titlePink: 'Lieferung zu dir nachhause',
-    description: `Deine geliebten Food Spots kämpfen gerade um ihre Existenz aufgrund der Krise - aber sie kochen weiter. Helf ihnen weiter zu bestehen in dem du Essen zum abholen oder liefern bestellst.`,
+    titleBlue: 'Unterstütze deine Restaurants in Berlin mit',
+    titlePink: 'Lieferung zu dir nach hause',
+    description: `Deine geliebten Food Spots kämpfen gerade um ihre Existenz in der Krise - aber sie kochen weiter. Hilf ihnen weiter zu bestehen, in dem du Essen zum Abholen oder Liefern bestellst.`,
     find: 'Finde Restaurants',
     add: 'Füg dein Restaurant hinzu',
   },
