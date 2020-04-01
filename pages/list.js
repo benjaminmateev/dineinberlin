@@ -15,10 +15,11 @@ const pageContent = {
       Food: 'Essen',
       Wine: 'Wein',
       Drinks: 'Getränke',
-      Giftcards: 'Voucher',      
+      Giftcards: 'Gutscheine',      
       Coffee: 'Kaffee',
       Pastries: 'Gebäck',
       Bread: 'Brot',
+      Beer: 'Bier',
     },
     delivery: 'Lieferung',
     orderLabel: 'Anschauen und Bestellen',
@@ -34,6 +35,7 @@ const pageContent = {
       Coffee: 'Coffee',
       Pastries: 'Pastries',
       Bread: 'Bread',
+      Beer: 'Beer',
     },
     delivery: 'Delivery',
     orderLabel: 'View and order',
@@ -114,7 +116,7 @@ export default ({ restaurants }) => {
                   <p className="w-full sm:w-auto font-medium m-1 mr-2">
                     {content.offersLabel}
                   </p>
-                  {['Food', 'Wine', 'Drinks', 'Giftcards', 'Coffee', 'Pastries', 'Bread'].map(offer => {
+                  {['Food', 'Wine', 'Drinks', 'Giftcards', 'Coffee', 'Pastries', 'Bread', 'Beer'].map(offer => {
                     const isChecked = filterOffers.includes(offer)
                     const handleChange = () => {
                       if (isChecked) {
