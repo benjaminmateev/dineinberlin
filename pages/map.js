@@ -46,6 +46,7 @@ export async function getStaticProps() {
   }
   ))
   
+  // TODO write back lat/lng to Airtable and use that for position data in maps
   if(process.env.NODE_ENV === 'production') {
     let i = -1
     for await (let restaurant of restaurants) {
