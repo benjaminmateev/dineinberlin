@@ -39,22 +39,31 @@ export async function getStaticProps() {
       view: 'Grid view', // NOTE: changing the view name will break things
     })
     .all()
-  const restaurants = await Promise.all(records.map(record => record.fields))
-
-  let i = -1
-  for await (let restaurant of restaurants) {
-    i++
-    const res = await fetch(
-      'https://maps.googleapis.com/maps/api/geocode/json?address=' +
-        encodeURI(restaurant.address) +
-        '&key=' +
-        googleMapsApiKey
-    ).catch(err => {
-      console.log(err)
-    })
-    const positionData = await res.json()
-    if (positionData) restaurants[i].positionData = positionData
+  const restaurants = await Promise.all(records.map(record => {
+    const info = record.fields
+    info.id = record.id
+    return info
   }
-
+  ))
+  
+  if(process.env.NODE_ENV === 'production') {
+    let i = -1
+    for await (let restaurant of restaurants) {
+      i++
+      await fetch(
+        'https://maps.googleapis.com/maps/api/geocode/json?address=' +
+          encodeURI(restaurant.address) +
+          '&key=' +
+          googleMapsApiKey
+      ).catch(err => {
+        console.log(err)
+      }).then(res => {
+        return res.json()
+      }).then(json => {
+        const positionData = json
+        if (positionData) restaurants[i].positionData = positionData
+      })
+    }
+  }
   return { props: { restaurants } }
 }
