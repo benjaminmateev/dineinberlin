@@ -55,6 +55,7 @@ const ListItem = ({ restaurant, content }) => {
       <div className="relative h-full flex flex-col items-start border border-sand overflow-hidden p-4 sm:p-8 lg:px-12">
         <div className="flex-auto">
           {name && <h3 className="text-xl sm:text-2xl mb-2">{name}</h3>}
+          {url && <h3 className="text-xl sm:text-2xl mb-2">{url}</h3> }
           {address && <p className="text-xs sm:text-sm mb-2">{address}</p>}
           {phone && <p className="text-sm mb-4">{phone}</p>}
           {description && (
@@ -73,16 +74,15 @@ const ListItem = ({ restaurant, content }) => {
             </ul>
           )}
         </div>
-        {url && (
-          <a
-            href={url.includes('http') ? url : 'https://' + url}
+        <a
+            href={url}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary text-sm sm:text-base"
           >
             {content.orderLabel}&nbsp;&nbsp;&nbsp;⟶
           </a>
-        )}
+        
         {delivery && (
           <div className="sm:absolute top-0 right-0 font-medium text-sm sm:bg-sand sm:border-b border-sand sm:px-2 sm:py-1 mt-4 sm:m-2">
             ✓ Delivery available
@@ -161,7 +161,7 @@ export default ({ restaurants }) => {
                 </label>
               </div>
               <ul className="flex flex-wrap -m-3">
-                {restaurants
+                {shuffle(restaurants)
                   // Shuffle restaurants  
                   // Filter for necessary content
                   .filter(
@@ -224,12 +224,15 @@ export async function getStaticProps() {
   return { props: { restaurants } }
 }
 
-export function shuffle(array) {
-  let i = array.length - 1;
-  for (; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
+export function shuffle(arr) {
+  var i,
+        j,
+        temp;
+    for (i = arr.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    return arr;  
 }
