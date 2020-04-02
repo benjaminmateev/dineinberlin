@@ -51,7 +51,7 @@ const ListItem = ({ restaurant, content }) => {
   const phone = restaurant.phone || undefined
   const url = restaurant.url || undefined
   return (
-    <li className="w-full md:w-1/2 p-3">
+    <li key={name} className="w-full md:w-1/2 p-3">
       <div className="relative h-full flex flex-col items-start border border-sand overflow-hidden p-4 sm:p-8 lg:px-12">
         <div className="flex-auto">
           {name && <h3 className="text-xl sm:text-2xl mb-2">{name}</h3>}
@@ -73,7 +73,7 @@ const ListItem = ({ restaurant, content }) => {
             </ul>
           )}
         </div>
-        {url && (
+        {url &&
           <a
             href={url.includes('http') ? url : 'https://' + url}
             target="_blank"
@@ -82,7 +82,7 @@ const ListItem = ({ restaurant, content }) => {
           >
             {content.orderLabel}&nbsp;&nbsp;&nbsp;⟶
           </a>
-        )}
+        }
         {delivery && (
           <div className="sm:absolute top-0 right-0 font-medium text-sm sm:bg-sand sm:border-b border-sand sm:px-2 sm:py-1 mt-4 sm:m-2">
             ✓ Delivery available
@@ -92,7 +92,55 @@ const ListItem = ({ restaurant, content }) => {
     </li>
   )
 }
+class List extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { shouldShuffle: false }
+  }
+  
+  componentDidMount() {
+    this.setState({shouldShuffle:true})
+  }
 
+  render () {
+    let restaurants =this.props.restaurants
+    if(!!this.state.shouldShuffle) {
+      restaurants = shuffle(restaurants)
+    }
+    return (
+      <ul className="flex flex-wrap -m-3">
+        {restaurants
+          // Filter for necessary content
+          .filter(
+            restaurant =>
+              restaurant.display &&
+              restaurant.name &&
+              restaurant.description &&
+              restaurant.url
+          )
+          // Filter for delivery
+          .filter(restaurant =>
+            this.props.filterDelivery ? restaurant.delivery : true
+          )
+          // Filter for offers
+          .filter(restaurant =>
+            this.props.filterOffers && this.props.filterOffers.length
+              ? this.props.filterOffers.every(offer =>
+                  restaurant.offerings.includes(offer)
+                )
+              : true
+          )
+          .map(restaurant => (
+            <ListItem
+              key={restaurant.name}
+              restaurant={restaurant}
+              content={this.props.content}
+            />
+          ))}
+      </ul>
+    )
+  }
+}
 export default ({ restaurants }) => {
   const { language } = useContext(LanguageContext)
   const content = pageContent[language]
@@ -160,37 +208,12 @@ export default ({ restaurants }) => {
                   <span className="select-none">{content.delivery}</span>
                 </label>
               </div>
-              <ul className="flex flex-wrap -m-3">
-                {restaurants
-                  // Shuffle restaurants  
-                  // Filter for necessary content
-                  .filter(
-                    restaurant =>
-                      restaurant.display &&
-                      restaurant.name &&
-                      restaurant.description &&
-                      restaurant.url
-                  )
-                  // Filter for delivery
-                  .filter(restaurant =>
-                    filterDelivery ? restaurant.delivery : true
-                  )
-                  // Filter for offers
-                  .filter(restaurant =>
-                    filterOffers && filterOffers.length
-                      ? filterOffers.every(offer =>
-                          restaurant.offerings.includes(offer)
-                        )
-                      : true
-                  )
-                  .map(restaurant => (
-                    <ListItem
-                      key={restaurant.name}
-                      restaurant={restaurant}
-                      content={content}
-                    />
-                  ))}
-              </ul>
+              <List 
+                restaurants={restaurants}
+                filterDelivery={filterDelivery}
+                filterOffers={filterOffers}
+                content={content}
+              />
             </div>
           </main>
           <Footer />
@@ -224,12 +247,15 @@ export async function getStaticProps() {
   return { props: { restaurants } }
 }
 
-export function shuffle(array) {
-  let i = array.length - 1;
-  for (; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
+export function shuffle(arr) {
+  var i,
+        j,
+        temp;
+    for (i = arr.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    return arr;  
 }
