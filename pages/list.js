@@ -161,7 +161,8 @@ export default ({ restaurants }) => {
                 </label>
               </div>
               <ul className="flex flex-wrap -m-3">
-                {restaurants
+                {shuffle(restaurants)
+                  // Shuffle restaurants  
                   // Filter for necessary content
                   .filter(
                     restaurant =>
@@ -221,4 +222,15 @@ export async function getStaticProps() {
   const restaurants = await Promise.all(records.map(record => record.fields))
 
   return { props: { restaurants } }
+}
+
+function shuffle(array) {
+  let i = array.length - 1;
+  for (; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array;
 }
