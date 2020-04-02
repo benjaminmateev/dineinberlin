@@ -161,7 +161,7 @@ export default ({ restaurants }) => {
                 </label>
               </div>
               <ul className="flex flex-wrap -m-3">
-                {shuffle(restaurants)
+                {restaurants
                   // Shuffle restaurants  
                   // Filter for necessary content
                   .filter(
