@@ -11,6 +11,7 @@ const pageContent = {
   'de-DE': {
     title: 'Restaurants',
     offersLabel: 'Angebote',
+    neighbourhoodLabel: 'Bezirke',
     offers: {
       Food: 'Essen',
       Wine: 'Wein',
@@ -27,6 +28,7 @@ const pageContent = {
   'en-GB': {
     title: 'Restaurants',
     offersLabel: 'Offers',
+    neighbourhoodLabel: 'Neighbourhoods',
     offers: {
       Food: 'Food',
       Wine: 'Wine',
@@ -50,13 +52,22 @@ const ListItem = ({ restaurant, content }) => {
   const delivery = restaurant.delivery || false
   const phone = restaurant.phone || undefined
   const url = restaurant.url || undefined
+  const neighbourhood = restaurant.neighbourhood || undefined
+  const email = restaurant.email || undefined
+
   return (
     <li key={name} className="w-full md:w-1/2 p-3">
       <div className="relative h-full flex flex-col items-start border border-sand overflow-hidden p-4 sm:p-8 lg:px-12">
         <div className="flex-auto">
           {name && <h3 className="text-xl sm:text-2xl mb-2">{name}</h3>}
-          {address && <p className="text-xs sm:text-sm mb-2">{address}</p>}
-          {phone && <p className="text-sm mb-4">{phone}</p>}
+          {address && <p className="text-xs sm:text-sm mb-2">{address}<span className="inline-block font-medium text-xs sm:text-sm bg-sand px-2 py-1 m-1"> {neighbourhood} </span></p>}
+          
+          
+          <p className="text-sm mb-4">
+            {phone && <a href={"tel:" + phone}>{phone}</a> }
+            {phone && email && <span> | </span>}
+            {email && <a href={"mailto:" + email}>{email}</a> }
+          </p>
           {description && (
             <p className="max-w-xl text-sm sm:text-base mb-4">{description}</p>
           )}
@@ -130,6 +141,14 @@ class List extends React.Component {
                 )
               : true
           )
+          // Filter for neighbourhoods
+          .filter(restaurant =>
+            this.props.filterNeighbourhoods && this.props.filterNeighbourhoods.length
+              ? this.props.filterNeighbourhoods.every(neighbourhood =>
+                  restaurant.neighbourhood === neighbourhood
+                )
+              : true
+          )
           .map(restaurant => (
             <ListItem
               key={restaurant.name}
@@ -141,13 +160,13 @@ class List extends React.Component {
     )
   }
 }
-export default ({ restaurants }) => {
+export default ({ restaurants, neighbourhoods }) => {
   const { language } = useContext(LanguageContext)
   const content = pageContent[language]
 
   const [filterDelivery, setFilterDelivery] = useState(false)
   const [filterOffers, setFilterOffers] = useState([])
-
+  const [filterNeighbourhoods, setFilterNeighbourhoods] = useState([])
   if (restaurants && !!restaurants.length)
     return (
       <>
@@ -208,6 +227,46 @@ export default ({ restaurants }) => {
                   <span className="select-none">{content.delivery}</span>
                 </label>
               </div>
+              <div className="flex flex-wrap sm:flex-no-wrap items-end -m-1 mb-6">
+                <div className="w-full flex flex-wrap items-center mb-4 sm:mb-0">
+                  <p className="w-full sm:w-auto font-medium m-1 mr-2">
+                    {content.neighbourhoodLabel}
+                  </p>
+                  {neighbourhoods.map(neighbourhood => {
+                    const isChecked = filterNeighbourhoods.includes(neighbourhood)
+                    const handleChange = () => {
+                      if (isChecked) {
+                        const newNeighbourhoods = [...filterNeighbourhoods]
+                        newNeighbourhoods.splice(newNeighbourhoods.indexOf(neighbourhood), 1)
+                        setFilterNeighbourhoods(newNeighbourhoods)
+                      } else {
+                        setFilterNeighbourhoods([...filterNeighbourhoods, neighbourhood])
+                      }
+                    }
+                    return (
+                      <label
+                        key={neighbourhood}
+                        className={
+                          'inline-block font-medium border-2 border-navy cursor-pointer px-2 py-1 m-1' +
+                          (isChecked
+                            ? ' text-sand-light bg-navy'
+                            : ' text-navy')
+                        }
+                      >
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={handleChange}
+                          className="sr-only"
+                        />
+                        <span className="select-none">
+                          {neighbourhood}
+                        </span>
+                      </label>
+                    )
+                  })}
+                </div>
+              </div>
               <List 
                 restaurants={restaurants}
                 filterDelivery={filterDelivery}
@@ -244,7 +303,16 @@ export async function getStaticProps() {
     .all()
   const restaurants = await Promise.all(records.map(record => record.fields))
 
-  return { props: { restaurants } }
+  const neighbourhoods = Array.from(
+    new Set(
+      restaurants.reduce( (hoods, restaurant) => {
+        if(restaurant.neighbourhood != undefined) hoods.push(restaurant.neighbourhood)
+        return hoods
+      }, [])
+    )
+  )
+
+  return { props: { restaurants, neighbourhoods } }
 }
 
 export function shuffle(arr) {
