@@ -24,4 +24,4 @@ The Copenhagen project is deployed with [Zeit Now](https://zeit.co/home), utilis
 
 ## Forked and Inspired by
 
-This project was forked and inspired by https://github.com/covid19-group/dinecph, which was built by https://github.com/sjwinther. Big shoutout!
+This project was forked and inspired by [Dine CPH](https://github.com/covid19-group/dinecph), which was built by [Sebastian Winther](https://github.com/sjwinther). Big shoutout!
