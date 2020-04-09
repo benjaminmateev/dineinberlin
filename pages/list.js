@@ -12,6 +12,7 @@ const pageContent = {
     title: 'Restaurants',
     offersLabel: 'Angebote',
     neighbourhoodLabel: 'Bezirke',
+    searchRestaurant: 'Suche',
     offers: {
       Food: 'Essen',
       Wine: 'Wein',
@@ -29,6 +30,7 @@ const pageContent = {
     title: 'Restaurants',
     offersLabel: 'Offers',
     neighbourhoodLabel: 'Neighbourhoods',
+    searchRestaurant: 'Search',
     offers: {
       Food: 'Food',
       Wine: 'Wine',
@@ -106,18 +108,18 @@ const ListItem = ({ restaurant, content }) => {
 class List extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { shouldShuffle: false }
+    // this.state = { shouldShuffle: false }
   }
   
-  componentDidMount() {
-    this.setState({shouldShuffle:true})
-  }
+  // componentDidMount() {
+  //   this.setState({shouldShuffle:true})
+  // }
 
   render () {
     let restaurants =this.props.restaurants
-    if(!!this.state.shouldShuffle) {
-      restaurants = shuffle(restaurants)
-    }
+    // if(!!this.state.shouldShuffle) {
+    //   restaurants = shuffle(restaurants)
+    // }
     return (
       <ul className="flex flex-wrap -m-3">
         {restaurants
@@ -145,7 +147,7 @@ class List extends React.Component {
           .filter(restaurant =>
             this.props.filterNeighbourhoods && this.props.filterNeighbourhoods.length
               ? this.props.filterNeighbourhoods.every(neighbourhood =>
-                  restaurant.neighbourhood === neighbourhood
+                  restaurant.neighbourhood.includes(neighbourhood)
                 )
               : true
           )
@@ -165,8 +167,10 @@ export default ({ restaurants, neighbourhoods }) => {
   const content = pageContent[language]
 
   const [filterDelivery, setFilterDelivery] = useState(false)
+  const [filterSearch, setFilterSearch] = useState("")
   const [filterOffers, setFilterOffers] = useState([])
   const [filterNeighbourhoods, setFilterNeighbourhoods] = useState([])
+
   if (restaurants && !!restaurants.length)
     return (
       <>
@@ -178,6 +182,9 @@ export default ({ restaurants, neighbourhoods }) => {
               <h2 className="flex-auto font-extrabold text-2xl sm:text-3xl leading-none mb-4 sm:mb-6">
                 {content.title}
               </h2>
+              <div className="flex flex-wrap sm:flex-no-wrap items-end -m-1 mb-6">
+                
+              </div>
               <div className="flex flex-wrap sm:flex-no-wrap items-end -m-1 mb-6">
                 <div className="w-full flex flex-wrap items-center mb-4 sm:mb-0">
                   <p className="w-full sm:w-auto font-medium m-1 mr-2">
