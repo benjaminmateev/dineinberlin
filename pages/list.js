@@ -108,18 +108,15 @@ const ListItem = ({ restaurant, content }) => {
 class List extends React.Component {
   constructor(props) {
     super(props)
-    // this.state = { shouldShuffle: false }
+    this.state = { restaurants: this.props.restaurants }
   }
   
-  // componentDidMount() {
-  //   this.setState({shouldShuffle:true})
-  // }
+  componentDidMount() {
+    this.setState({restaurants: shuffle(this.state.restaurants)})
+  }
 
   render () {
-    let restaurants =this.props.restaurants
-    // if(!!this.state.shouldShuffle) {
-    //   restaurants = shuffle(restaurants)
-    // }
+    let restaurants =this.state.restaurants
     return (
       <ul className="flex flex-wrap -m-3">
         {restaurants
@@ -144,13 +141,13 @@ class List extends React.Component {
               : true
           )
           // Filter for neighbourhoods
-          .filter(restaurant =>
-            this.props.filterNeighbourhoods && this.props.filterNeighbourhoods.length
-              ? this.props.filterNeighbourhoods.every(neighbourhood =>
-                  restaurant.neighbourhood.includes(neighbourhood)
-                )
-              : true
-          )
+          .filter(restaurant => {
+            return this.props.filterNeighbourhoods && this.props.filterNeighbourhoods.length
+            ? this.props.filterNeighbourhoods.every(neighbourhood =>
+                restaurant.neighbourhood === neighbourhood
+              )
+            : true
+          })
           .map(restaurant => (
             <ListItem
               key={restaurant.name}
@@ -184,100 +181,103 @@ export default ({ restaurants, neighbourhoods }) => {
               </h2>
               <div className="flex flex-wrap sm:flex-no-wrap items-end -m-1 mb-6">
                 
-              </div>
-              <div className="flex flex-wrap sm:flex-no-wrap items-end -m-1 mb-6">
                 <div className="w-full flex flex-wrap items-center mb-4 sm:mb-0">
-                  <p className="w-full sm:w-auto font-medium m-1 mr-2">
-                    {content.offersLabel}
-                  </p>
-                  {['Food', 'Wine', 'Drinks', 'Giftcards', 'Coffee', 'Pastries', 'Bread', 'Beer'].map(offer => {
-                    const isChecked = filterOffers.includes(offer)
-                    const handleChange = () => {
-                      if (isChecked) {
-                        const newOffers = [...filterOffers]
-                        newOffers.splice(newOffers.indexOf(offer), 1)
-                        setFilterOffers(newOffers)
-                      } else {
-                        setFilterOffers([...filterOffers, offer])
-                      }
-                    }
-                    return (
-                      <label
-                        key={offer}
-                        className={
-                          'inline-block font-medium border-2 border-navy cursor-pointer px-2 py-1 m-1' +
-                          (isChecked
-                            ? ' text-sand-light bg-navy'
-                            : ' text-navy')
+                  <div className="w-full flex flex-wrap items-center mb-4 sm:mb-0 justify-between">
+                    <p className="w-full sm:w-auto font-medium m-1 mr-2">
+                      {content.offersLabel}
+                    </p>
+                    <label className="flex-shrink-0 inline-flex items-center font-medium cursor-pointer m-1">
+                      <input
+                        type="checkbox"
+                        checked={filterDelivery}
+                        onChange={() => setFilterDelivery(!filterDelivery)}
+                        className="form-checkbox mr-2"
+                      />
+                      <span className="select-none">{content.delivery}</span>
+                    </label>
+                  </div>
+                  <div className="w-full flex flex-wrap items-center mb-4 sm:mb-0">
+                    {['Food', 'Wine', 'Drinks', 'Giftcards', 'Coffee', 'Pastries', 'Bread', 'Beer'].map(offer => {
+                      const isChecked = filterOffers.includes(offer)
+                      const handleChange = () => {
+                        if (isChecked) {
+                          const newOffers = [...filterOffers]
+                          newOffers.splice(newOffers.indexOf(offer), 1)
+                          setFilterOffers(newOffers)
+                        } else {
+                          setFilterOffers([...filterOffers, offer])
                         }
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={handleChange}
-                          className="sr-only"
-                        />
-                        <span className="select-none">
-                          {content.offers[offer]}
-                        </span>
-                      </label>
-                    )
-                  })}
+                      }
+                      return (
+                        <label
+                          key={offer}
+                          className={
+                            'inline-block font-medium border-2 border-navy cursor-pointer px-2 py-1 m-1' +
+                            (isChecked
+                              ? ' text-sand-light bg-navy'
+                              : ' text-navy')
+                          }
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={handleChange}
+                            className="sr-only"
+                          />
+                          <span className="select-none">
+                            {content.offers[offer]}
+                          </span>
+                        </label>
+                      )
+                    })}
+                  </div>
                 </div>
-                <label className="flex-shrink-0 inline-flex items-center font-medium cursor-pointer m-1">
-                  <input
-                    type="checkbox"
-                    checked={filterDelivery}
-                    onChange={() => setFilterDelivery(!filterDelivery)}
-                    className="form-checkbox mr-2"
-                  />
-                  <span className="select-none">{content.delivery}</span>
-                </label>
               </div>
               <div className="flex flex-wrap sm:flex-no-wrap items-end -m-1 mb-6">
-                <div className="w-full flex flex-wrap items-center mb-4 sm:mb-0">
+                <div className="w-full items-center mb-4 sm:mb-0">
                   <p className="w-full sm:w-auto font-medium m-1 mr-2">
                     {content.neighbourhoodLabel}
                   </p>
-                  {neighbourhoods.map(neighbourhood => {
-                    const isChecked = filterNeighbourhoods.includes(neighbourhood)
-                    const handleChange = () => {
-                      if (isChecked) {
-                        const newNeighbourhoods = [...filterNeighbourhoods]
-                        newNeighbourhoods.splice(newNeighbourhoods.indexOf(neighbourhood), 1)
-                        setFilterNeighbourhoods(newNeighbourhoods)
-                      } else {
-                        setFilterNeighbourhoods([...filterNeighbourhoods, neighbourhood])
-                      }
-                    }
-                    return (
-                      <label
-                        key={neighbourhood}
-                        className={
-                          'inline-block font-medium border-2 border-navy cursor-pointer px-2 py-1 m-1' +
-                          (isChecked
-                            ? ' text-sand-light bg-navy'
-                            : ' text-navy')
+                  <div className="w-full flex flex-wrap items-center mb-4 sm:mb-0 md:max-w-3xl max-w-xl">
+                    {neighbourhoods.map(neighbourhood => {
+                      const isChecked = filterNeighbourhoods.includes(neighbourhood)
+                      const handleChangeN = () => {
+                        if (isChecked) {
+                          const newNeighbourhoods = [...filterNeighbourhoods]
+                          newNeighbourhoods.splice(newNeighbourhoods.indexOf(neighbourhood), 1)
+                          setFilterNeighbourhoods(newNeighbourhoods)
+                        } else {
+                          setFilterNeighbourhoods([...filterNeighbourhoods, neighbourhood])
                         }
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={handleChange}
-                          className="sr-only"
-                        />
-                        <span className="select-none">
-                          {neighbourhood}
-                        </span>
-                      </label>
-                    )
-                  })}
+                      }
+                      return (
+                        <label
+                          key={neighbourhood}
+                          className={
+                            'inline-block font-small border-2 border-navy cursor-pointer px-2 py-1 m-1' +
+                            (isChecked
+                              ? ' text-sand-light bg-navy'
+                              : ' text-navy')
+                          }
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={handleChangeN}
+                            className="sr-only"
+                          />
+                          <span className="select-none">{neighbourhood}</span>
+                        </label>
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
               <List 
                 restaurants={restaurants}
                 filterDelivery={filterDelivery}
                 filterOffers={filterOffers}
+                filterNeighbourhoods={filterNeighbourhoods}
                 content={content}
               />
             </div>
