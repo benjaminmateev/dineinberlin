@@ -120,7 +120,11 @@ const Tooltip = ({ tooltip, setTooltip }) => {
                 </ul>
               )}
               {delivery && <div className="mb-3">✓ Delivery available</div>}
-              {phone && <div className="mb-3"><a href={"tel:" + phone}>{phone}</a></div>}
+              <div className="mb-3">
+                {phone && <a href={"tel:" + phone}>{phone}</a> }
+                {phone && email && <span> | </span>}
+                {email && <a href={"mailto:" + email}>{email}</a> }
+              </div>  
               {url && (
                 <a
                   href={url.includes('http') ? url : 'https://' + url}

@@ -11,6 +11,8 @@ const pageContent = {
   'de-DE': {
     title: 'Restaurants',
     offersLabel: 'Angebote',
+    neighbourhoodLabel: 'Bezirke',
+    searchRestaurant: 'Suche',
     offers: {
       Food: 'Essen',
       Wine: 'Wein',
@@ -27,6 +29,8 @@ const pageContent = {
   'en-GB': {
     title: 'Restaurants',
     offersLabel: 'Offers',
+    neighbourhoodLabel: 'Neighbourhoods',
+    searchRestaurant: 'Search',
     offers: {
       Food: 'Food',
       Wine: 'Wine',
@@ -50,13 +54,22 @@ const ListItem = ({ restaurant, content }) => {
   const delivery = restaurant.delivery || false
   const phone = restaurant.phone || undefined
   const url = restaurant.url || undefined
+  const neighbourhood = restaurant.neighbourhood || undefined
+  const email = restaurant.email || undefined
+
   return (
     <li key={name} className="w-full md:w-1/2 p-3">
       <div className="relative h-full flex flex-col items-start border border-sand overflow-hidden p-4 sm:p-8 lg:px-12">
         <div className="flex-auto">
           {name && <h3 className="text-xl sm:text-2xl mb-2">{name}</h3>}
-          {address && <p className="text-xs sm:text-sm mb-2">{address}</p>}
-          {phone && <p className="text-sm mb-4">{phone}</p>}
+          {address && <p className="text-xs sm:text-sm mb-2">{address}<span className="inline-block font-medium text-xs sm:text-sm bg-sand px-2 py-1 m-1"> {neighbourhood} </span></p>}
+          
+          
+          <p className="text-sm mb-4">
+            {phone && <a href={"tel:" + phone}>{phone}</a> }
+            {phone && email && <span> | </span>}
+            {email && <a href={"mailto:" + email}>{email}</a> }
+          </p>
           {description && (
             <p className="max-w-xl text-sm sm:text-base mb-4">{description}</p>
           )}
@@ -95,18 +108,15 @@ const ListItem = ({ restaurant, content }) => {
 class List extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { shouldShuffle: false }
+    this.state = { restaurants: this.props.restaurants }
   }
   
   componentDidMount() {
-    this.setState({shouldShuffle:true})
+    this.setState({restaurants: shuffle(this.state.restaurants)})
   }
 
   render () {
-    let restaurants =this.props.restaurants
-    if(!!this.state.shouldShuffle) {
-      restaurants = shuffle(restaurants)
-    }
+    let restaurants =this.state.restaurants
     return (
       <ul className="flex flex-wrap -m-3">
         {restaurants
@@ -130,6 +140,14 @@ class List extends React.Component {
                 )
               : true
           )
+          // Filter for neighbourhoods
+          .filter(restaurant => {
+            return this.props.filterNeighbourhoods && this.props.filterNeighbourhoods.length
+            ? this.props.filterNeighbourhoods.every(neighbourhood =>
+                restaurant.neighbourhood === neighbourhood
+              )
+            : true
+          })
           .map(restaurant => (
             <ListItem
               key={restaurant.name}
@@ -141,12 +159,14 @@ class List extends React.Component {
     )
   }
 }
-export default ({ restaurants }) => {
+export default ({ restaurants, neighbourhoods }) => {
   const { language } = useContext(LanguageContext)
   const content = pageContent[language]
 
   const [filterDelivery, setFilterDelivery] = useState(false)
+  const [filterSearch, setFilterSearch] = useState("")
   const [filterOffers, setFilterOffers] = useState([])
+  const [filterNeighbourhoods, setFilterNeighbourhoods] = useState([])
 
   if (restaurants && !!restaurants.length)
     return (
@@ -160,58 +180,104 @@ export default ({ restaurants }) => {
                 {content.title}
               </h2>
               <div className="flex flex-wrap sm:flex-no-wrap items-end -m-1 mb-6">
+                
                 <div className="w-full flex flex-wrap items-center mb-4 sm:mb-0">
-                  <p className="w-full sm:w-auto font-medium m-1 mr-2">
-                    {content.offersLabel}
-                  </p>
-                  {['Food', 'Wine', 'Drinks', 'Giftcards', 'Coffee', 'Pastries', 'Bread', 'Beer'].map(offer => {
-                    const isChecked = filterOffers.includes(offer)
-                    const handleChange = () => {
-                      if (isChecked) {
-                        const newOffers = [...filterOffers]
-                        newOffers.splice(newOffers.indexOf(offer), 1)
-                        setFilterOffers(newOffers)
-                      } else {
-                        setFilterOffers([...filterOffers, offer])
-                      }
-                    }
-                    return (
-                      <label
-                        key={offer}
-                        className={
-                          'inline-block font-medium border-2 border-navy cursor-pointer px-2 py-1 m-1' +
-                          (isChecked
-                            ? ' text-sand-light bg-navy'
-                            : ' text-navy')
+                  <div className="w-full flex flex-wrap items-center mb-4 sm:mb-0 justify-between">
+                    <p className="w-full sm:w-auto font-medium m-1 mr-2">
+                      {content.offersLabel}
+                    </p>
+                    <label className="flex-shrink-0 inline-flex items-center font-medium cursor-pointer m-1">
+                      <input
+                        type="checkbox"
+                        checked={filterDelivery}
+                        onChange={() => setFilterDelivery(!filterDelivery)}
+                        className="form-checkbox mr-2"
+                      />
+                      <span className="select-none">{content.delivery}</span>
+                    </label>
+                  </div>
+                  <div className="w-full flex flex-wrap items-center mb-4 sm:mb-0">
+                    {['Food', 'Wine', 'Drinks', 'Giftcards', 'Coffee', 'Pastries', 'Bread', 'Beer'].map(offer => {
+                      const isChecked = filterOffers.includes(offer)
+                      const handleChange = () => {
+                        if (isChecked) {
+                          const newOffers = [...filterOffers]
+                          newOffers.splice(newOffers.indexOf(offer), 1)
+                          setFilterOffers(newOffers)
+                        } else {
+                          setFilterOffers([...filterOffers, offer])
                         }
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={handleChange}
-                          className="sr-only"
-                        />
-                        <span className="select-none">
-                          {content.offers[offer]}
-                        </span>
-                      </label>
-                    )
-                  })}
+                      }
+                      return (
+                        <label
+                          key={offer}
+                          className={
+                            'inline-block font-medium border-2 border-navy cursor-pointer px-2 py-1 m-1' +
+                            (isChecked
+                              ? ' text-sand-light bg-navy'
+                              : ' text-navy')
+                          }
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={handleChange}
+                            className="sr-only"
+                          />
+                          <span className="select-none">
+                            {content.offers[offer]}
+                          </span>
+                        </label>
+                      )
+                    })}
+                  </div>
                 </div>
-                <label className="flex-shrink-0 inline-flex items-center font-medium cursor-pointer m-1">
-                  <input
-                    type="checkbox"
-                    checked={filterDelivery}
-                    onChange={() => setFilterDelivery(!filterDelivery)}
-                    className="form-checkbox mr-2"
-                  />
-                  <span className="select-none">{content.delivery}</span>
-                </label>
+              </div>
+              <div className="flex flex-wrap sm:flex-no-wrap items-end -m-1 mb-6">
+                <div className="w-full items-center mb-4 sm:mb-0">
+                  <p className="w-full sm:w-auto font-medium m-1 mr-2">
+                    {content.neighbourhoodLabel}
+                  </p>
+                  <div className="w-full flex flex-wrap items-center mb-4 sm:mb-0 md:max-w-3xl max-w-xl">
+                    {neighbourhoods.map(neighbourhood => {
+                      const isChecked = filterNeighbourhoods.includes(neighbourhood)
+                      const handleChangeN = () => {
+                        if (isChecked) {
+                          const newNeighbourhoods = [...filterNeighbourhoods]
+                          newNeighbourhoods.splice(newNeighbourhoods.indexOf(neighbourhood), 1)
+                          setFilterNeighbourhoods(newNeighbourhoods)
+                        } else {
+                          setFilterNeighbourhoods([...filterNeighbourhoods, neighbourhood])
+                        }
+                      }
+                      return (
+                        <label
+                          key={neighbourhood}
+                          className={
+                            'inline-block font-small border-2 border-navy cursor-pointer px-2 py-1 m-1' +
+                            (isChecked
+                              ? ' text-sand-light bg-navy'
+                              : ' text-navy')
+                          }
+                        >
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={handleChangeN}
+                            className="sr-only"
+                          />
+                          <span className="select-none">{neighbourhood}</span>
+                        </label>
+                      )
+                    })}
+                  </div>
+                </div>
               </div>
               <List 
                 restaurants={restaurants}
                 filterDelivery={filterDelivery}
                 filterOffers={filterOffers}
+                filterNeighbourhoods={filterNeighbourhoods}
                 content={content}
               />
             </div>
@@ -244,7 +310,16 @@ export async function getStaticProps() {
     .all()
   const restaurants = await Promise.all(records.map(record => record.fields))
 
-  return { props: { restaurants } }
+  const neighbourhoods = Array.from(
+    new Set(
+      restaurants.reduce( (hoods, restaurant) => {
+        if(restaurant.neighbourhood != undefined) hoods.push(restaurant.neighbourhood)
+        return hoods
+      }, [])
+    )
+  )
+
+  return { props: { restaurants, neighbourhoods } }
 }
 
 export function shuffle(arr) {
