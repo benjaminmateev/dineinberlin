@@ -76,8 +76,13 @@ export default () => {
             </a>
           </p>
         </div>
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0 relativ">
           <LanguageSelector />
+          <div className="text-left md:text-right mt-4">
+            <a href="https://www.instagram.com/dineinberlin/" target="_blank" rel="noopener">
+              <img src="/assets/instagram.svg" alt="Instagram" width="24"/>
+            </a>
+          </div>
         </div>
       </div>
     </footer>
