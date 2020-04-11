@@ -36,13 +36,12 @@ export default ({ restaurants }) => {
           <Tooltip tooltip={tooltip} setTooltip={setTooltip} />
           {restaurants.map(restaurant => {
             const position =
-              restaurant &&
               restaurant.positionData &&
               restaurant.positionData.results &&
               !!restaurant.positionData.results.length &&
               restaurant.positionData.results[0].geometry &&
               restaurant.positionData.results[0].geometry.location
-            if (restaurant.display && position)
+            if (position)
               return (
                 <Marker
                   key={restaurant.name}
@@ -74,7 +73,7 @@ const Tooltip = ({ tooltip, setTooltip }) => {
   const phone = tooltip.phone || undefined
   const url = tooltip.url || undefined
   const email = tooltip.email || undefined
-  
+
   const position =
     (tooltip &&
       tooltip.positionData &&

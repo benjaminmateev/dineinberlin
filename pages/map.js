@@ -37,6 +37,8 @@ export async function getStaticProps() {
     .select({
       maxRecords: 999999, // don't want to paginate...
       view: 'Grid view', // NOTE: changing the view name will break things
+      fields: ['name', 'address', 'description', 'offerings', 'delivery', 'phone', 'url', 'neighbourhood', 'email'],
+      filterByFormula: "display = '1'",
     })
     .all()
   const restaurants = await Promise.all(records.map(record => {
