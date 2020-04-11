@@ -105,6 +105,7 @@ const ListItem = ({ restaurant, content }) => {
     </li>
   )
 }
+
 class List extends React.Component {
   constructor(props) {
     super(props)

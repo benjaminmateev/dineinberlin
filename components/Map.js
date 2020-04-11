@@ -73,6 +73,8 @@ const Tooltip = ({ tooltip, setTooltip }) => {
   const delivery = tooltip.delivery || false
   const phone = tooltip.phone || undefined
   const url = tooltip.url || undefined
+  const email = tooltip.email || undefined
+  
   const position =
     (tooltip &&
       tooltip.positionData &&
