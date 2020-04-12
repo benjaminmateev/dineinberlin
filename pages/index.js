@@ -43,9 +43,9 @@ export default () => {
               </div>
             </div>
             <img
-              src="/assets/dineinberlin.svg"
+              src="/assets/bicycle1_dineberlin.png"
               alt="Vin og sjov"
-              className="hidden md:block w-128 h-128"
+              className="hidden md:block w-128"
             />
           </div>
         </main>
