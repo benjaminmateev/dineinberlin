@@ -47,6 +47,7 @@ const pageContent = {
 }
 
 const ListItem = ({ restaurant, content }) => {
+  const id = restaurant.id || undefined
   const name = restaurant.name || undefined
   const address = restaurant.address || undefined
   const description = restaurant.description || undefined
@@ -58,7 +59,7 @@ const ListItem = ({ restaurant, content }) => {
   const email = restaurant.email || undefined
 
   return (
-    <li key={name} className="w-full md:w-1/2 p-3">
+    <li key={id} className="w-full md:w-1/2 p-3">
       <div className="relative h-full flex flex-col items-start border border-sand overflow-hidden p-4 sm:p-8 lg:px-12">
         <div className="flex-auto">
           {name && <h3 className="text-xl sm:text-2xl mb-2">{name}</h3>}
@@ -150,7 +151,7 @@ class List extends React.Component {
           })
           .map(restaurant => (
             <ListItem
-              key={restaurant.name}
+              key={restaurant.id}
               restaurant={restaurant}
               content={this.props.content}
             />
@@ -310,7 +311,12 @@ export async function getStaticProps() {
       filterByFormula: "display = '1'",
     })
     .all()
-  const restaurants = await Promise.all(records.map(record => record.fields))
+  
+  const restaurants = await Promise.all(records.map(record => {
+    const info = record.fields
+    info.id = record.id
+    return info
+  }))
 
   const neighbourhoods = Array.from(
     new Set(
