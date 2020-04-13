@@ -44,7 +44,7 @@ export default ({ restaurants }) => {
             if (position)
               return (
                 <Marker
-                  key={restaurant.name}
+                  key={restaurant.id}
                   position={position}
                   onClick={() => setTooltip(restaurant)}
                 />
@@ -91,7 +91,7 @@ const Tooltip = ({ tooltip, setTooltip }) => {
           mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
         >
           <motion.div
-            key={tooltip.name}
+            key={tooltip.id}
             initial={{ opacity: 0, y: -28 }}
             animate={{ opacity: 1, y: -36 }}
             exit={{ opacity: 0, y: -32 }}
