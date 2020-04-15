@@ -14,8 +14,8 @@ export default () => {
       <div className="min-h-screen flex flex-col">
         <Nav />
         <main className="flex-auto pt-8 lg:pt-0 pb-16">
-          <div className="max-w-6xl flex items-center md:overflow-hidden mx-auto">
-            <div className="flex-auto w-128 md:flex-shrink-0 px-3 md:pr-16 md:mt-10">
+          <div className="max-w-6xl flex items-center md:overflow-hidden mx-auto md:mt-10">
+            <div className="flex-auto w-128 md:flex-shrink-0 px-3 md:pr-16">
               <h1 className="max-w-xl text-3xl sm:text-5xl leading-none mb-6">
                 {content.titleBlue} <br className="hidden sm:inline" />
                 <span className="text-pink">{content.titlePink}</span>
