@@ -45,7 +45,7 @@ export default () => {
             <img
               src="/assets/bicycle1_dineberlin.png"
               alt="Vin og sjov"
-              className="hidden md:block w-128"
+              className="hidden md:block w-128 mt-10"
             />
           </div>
         </main>
