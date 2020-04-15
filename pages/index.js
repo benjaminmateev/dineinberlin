@@ -15,7 +15,7 @@ export default () => {
         <Nav />
         <main className="flex-auto pt-8 lg:pt-0 pb-16">
           <div className="max-w-6xl flex items-center md:overflow-hidden mx-auto">
-            <div className="flex-auto w-128 md:flex-shrink-0 px-3 md:pr-16">
+            <div className="flex-auto w-128 md:flex-shrink-0 px-3 md:pr-16 md:mt-10">
               <h1 className="max-w-xl text-3xl sm:text-5xl leading-none mb-6">
                 {content.titleBlue} <br className="hidden sm:inline" />
                 <span className="text-pink">{content.titlePink}</span>
@@ -45,7 +45,7 @@ export default () => {
             <img
               src="/assets/bicycle1_dineberlin.png"
               alt="Vin og sjov"
-              className="hidden md:block w-128 mt-10"
+              className="hidden md:block w-128"
             />
           </div>
         </main>
