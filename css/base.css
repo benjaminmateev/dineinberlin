@@ -68,7 +68,7 @@ p > a {
   @apply text-white bg-navy;
 }
 .btn-secondary {
-  @apply text-navy-light bg-teal;
+  @apply text-white bg-pink;
 }
 
 /* purgecss end ignore */
