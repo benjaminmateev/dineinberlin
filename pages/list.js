@@ -60,10 +60,10 @@ const ListItem = ({ restaurant, content }) => {
 
   return (
     <li key={id} className="w-full md:w-1/2 p-3">
-      <div className="relative h-full flex flex-col items-start border border-sand overflow-hidden p-4 sm:p-8 lg:px-12">
+      <div className="relative h-full flex flex-col items-start bg-white rounded-lg overflow-hidden p-4 sm:p-8 lg:px-12">
         <div className="flex-auto">
           {name && <h3 className="text-xl sm:text-2xl mb-2">{name}</h3>}
-          {address && <p className="text-xs sm:text-sm mb-2">{address}<span className="inline-block font-medium text-xs sm:text-sm bg-sand px-2 py-1 m-1"> {neighbourhood} </span></p>}
+          {address && <p className="text-xs sm:text-sm mb-2">{address}<span className="inline-block font-medium text-xs sm:text-sm bg-teal px-2 py-1 m-1"> {neighbourhood} </span></p>}
           
           
           <p className="text-sm mb-4">
@@ -79,7 +79,7 @@ const ListItem = ({ restaurant, content }) => {
               {offers.map(offer => (
                 <li
                   key={offer}
-                  className="inline-block font-medium text-xs sm:text-sm bg-sand px-2 py-1 m-1"
+                  className="inline-block font-medium text-xs sm:text-sm bg-teal px-2 py-1 m-1"
                 >
                   {content.offers[offer]}
                 </li>
@@ -98,7 +98,7 @@ const ListItem = ({ restaurant, content }) => {
           </a>
         }
         {delivery && (
-          <div className="sm:absolute top-0 right-0 font-medium text-sm sm:bg-sand sm:border-b border-sand sm:px-2 sm:py-1 mt-4 sm:m-2">
+          <div className="sm:absolute top-0 right-0 font-medium text-sm sm:bg-teal sm:border-b border-sand sm:px-2 sm:py-1 mt-4 sm:m-2">
             ✓ Delivery available
           </div>
         )}
