@@ -37,7 +37,7 @@ export async function getStaticProps() {
     .select({
       maxRecords: 999999, // don't want to paginate...
       view: 'Grid view', // NOTE: changing the view name will break things
-      fields: ['name', 'address', 'description', 'offerings', 'delivery', 'phone', 'url', 'neighbourhood', 'email'],
+      fields: ['name', 'address', 'description', 'offerings', 'delivery', 'phone', 'url', 'neighbourhood', 'email', 'location'],
       filterByFormula: "display = '1'",
     })
     .all()
@@ -48,25 +48,28 @@ export async function getStaticProps() {
   }
   ))
   
-  // TODO write back lat/lng to Airtable and use that for position data in maps
-  if(process.env.NODE_ENV === 'production') {
-    let i = -1
-    for await (let restaurant of restaurants) {
-      i++
-      await fetch(
-        'https://maps.googleapis.com/maps/api/geocode/json?address=' +
-          encodeURI(restaurant.address) +
-          '&key=' +
-          googleMapsApiKey
-      ).catch(err => {
-        console.log(err)
-      }).then(res => {
-        return res.json()
-      }).then(json => {
-        const positionData = json
-        if (positionData) restaurants[i].positionData = positionData
-      })
-    }
-  }
+  // Dont need this anymore as locaation encoding happens in Airtable but 
+  // keeping for future reference and could build to do geolcation and store in Airtable here
+
+  // if(process.env.NODE_ENV === 'production') {
+  //   let i = -1
+  //   for await (let restaurant of restaurants) {
+  //     i++
+  //     await fetch(
+  //       'https://maps.googleapis.com/maps/api/geocode/json?address=' +
+  //         encodeURI(restaurant.address) +
+  //         '&key=' +
+  //         googleMapsApiKey
+  //     ).catch(err => {
+  //       console.log(err)
+  //     }).then(res => {
+  //       return res.json()
+  //     }).then(json => {
+  //       const positionData = json
+  //       if (positionData) restaurants[i].positionData = positionData
+  //     })
+  //   }
+  // }
+  
   return { props: { restaurants } }
 }
