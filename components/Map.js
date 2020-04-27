@@ -22,6 +22,10 @@ export default ({ restaurants }) => {
     process.env.NODE_ENV === 'production'
       ? process.env.RESTRICTED_GOOGLE_MAPS_API_KEY
       : undefined
+  
+  // For local testing of Google Maps API
+  // const restrictedGoogleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY
+
 
   if (restaurants && !!restaurants.length)
     return (
@@ -35,12 +39,8 @@ export default ({ restaurants }) => {
         >
           <Tooltip tooltip={tooltip} setTooltip={setTooltip} />
           {restaurants.map(restaurant => {
-            const position =
-              restaurant.positionData &&
-              restaurant.positionData.results &&
-              !!restaurant.positionData.results.length &&
-              restaurant.positionData.results[0].geometry &&
-              restaurant.positionData.results[0].geometry.location
+            const position = restaurant.location ? JSON.parse(restaurant.location) : false
+
             if (position)
               return (
                 <Marker
@@ -74,14 +74,8 @@ const Tooltip = ({ tooltip, setTooltip }) => {
   const url = tooltip.url || undefined
   const email = tooltip.email || undefined
 
-  const position =
-    (tooltip &&
-      tooltip.positionData &&
-      tooltip.positionData.results &&
-      !!tooltip.positionData.results.length &&
-      tooltip.positionData.results[0].geometry &&
-      tooltip.positionData.results[0].geometry.location) ||
-    false
+  const position = tooltip.location ? JSON.parse(tooltip.location) : false
+
   return (
     <AnimatePresence>
       {tooltip && position && (

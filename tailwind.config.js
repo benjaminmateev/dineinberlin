@@ -18,6 +18,7 @@ module.exports = {
       'navy-light': '#594a4e', // elements paragraph
       teal: '#ffc6c7', // illustration secondary 
       white: '#fffffe', // white
+      green: '#c3f0ca', // tertiary highlight
     },
     fontFamily: {
       inter:
