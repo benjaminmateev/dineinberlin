@@ -1,5 +1,8 @@
+const withPWA = require('next-pwa')
+
 require('dotenv').config()
-module.exports = {
+
+module.exports = withPWA({
   env: {
     AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY,
     AIRTABLE_BASE_KEY: process.env.AIRTABLE_BASE_KEY,
@@ -19,4 +22,7 @@ module.exports = {
     )
     return config
   },
-}
+  pwa: {
+    dest: 'public'
+  },
+})
