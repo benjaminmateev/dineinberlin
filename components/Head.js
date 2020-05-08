@@ -9,7 +9,13 @@ export default ({ children }) => {
     "Your local food joints are struggling during the current crisis — but they're still cooking! Help them keep the lights on, by getting take-out from the best restaurants in Berlin."
   return (
     <Head>
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <meta charset='utf-8' />
+      <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+      <meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1' />
+      <link rel='manifest' href='/manifest.json' />
+      <link rel='apple-touch-icon' href='/apple-icon.png'></link>
+      <meta name='theme-color' content='#ff8ba7' />
+      
       <link rel="icon" href="https://dineinberlin.com/favicon.png" />
       <title>{title}</title>
       <meta property="og:type" content="website" />
