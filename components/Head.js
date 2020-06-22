@@ -9,8 +9,8 @@ export default ({ children }) => {
     "Your local food joints are struggling during the current crisis — but they're still cooking! Help them keep the lights on, by getting take-out from the best restaurants in Berlin."
   return (
     <Head>
-      <meta charset='utf-8' />
-      <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+      <meta charSet='utf-8' />
+      <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
       <meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1' />
       <link rel='manifest' href='/manifest.json' />
       <link rel='apple-touch-icon' href='/apple-icon.png'></link>

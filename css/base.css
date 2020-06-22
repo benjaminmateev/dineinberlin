@@ -1,7 +1,6 @@
 @import url('https://rsms.me/inter/inter.css');
 @import url('/modernist/modernist.css');
 
-/* purgecss start ignore */
 
 @tailwind base;
 
@@ -70,8 +69,6 @@ p > a {
 .btn-secondary {
   @apply text-white bg-pink;
 }
-
-/* purgecss end ignore */
 
 @tailwind utilities;
 
