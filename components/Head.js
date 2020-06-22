@@ -11,7 +11,7 @@ export default ({ children }) => {
     <Head>
       <meta charSet='utf-8' />
       <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
-      <meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1' />
+      <meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5' />
       <link rel='manifest' href='/manifest.json' />
       <link rel='apple-touch-icon' href='/apple-icon.png'></link>
       <meta name='theme-color' content='#ff8ba7' />
@@ -32,6 +32,9 @@ export default ({ children }) => {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content="https://dineinberlin.com/og-image.png" />
+
+      <link rel="dns-prefetch" href="https://rsms.me" />
+      <link rel="dns-prefetch" href="https://www.google-analytics.com" />
       {children}
     </Head>
   )

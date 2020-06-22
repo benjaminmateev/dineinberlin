@@ -14,7 +14,7 @@ module.exports = {
       // https://www.happyhues.co/palettes/15
       sand: '#f3d2c1',
       'sand-light': '#faeee7', // elements background
-      pink: '#ff8ba7', // elements button
+      pink: '#FF3874', // elements button
       navy: '#33272a', // elements button text
       'navy-light': '#594a4e', // elements paragraph
       teal: '#ffc6c7', // illustration secondary 
