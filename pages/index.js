@@ -43,7 +43,7 @@ export default () => {
               </div>
             </div>
             <img
-              src="/assets/bicycle1_dineberlin.png"
+              src={require('../public/assets/bicycle1_dineberlin.png')}
               alt="Vin og sjov"
               className="hidden md:block w-128"
             />
