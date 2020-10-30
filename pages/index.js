@@ -57,8 +57,8 @@ export default () => {
 
 const pageContent = {
   'de-DE': {
-    titleBlue: 'Unterstütze deine Restaurants in Berlin',
-    titlePink: 'Bestell zu dir nach hause',
+    titleBlue: 'Finde die besten Restaurants und Bars in Berlin',
+    titlePink: 'wenn du sie am meisten brauchst!',
     description: `Deine geliebten Food Spots kämpfen gerade um ihre Existenz in der Krise - aber sie kochen weiter. Hilf ihnen weiter zu bestehen, in dem du Essen zum Abholen oder Liefern bestellst.`,
     find: 'Finde Restaurants',
     add: 'Füg dein Restaurant hinzu',

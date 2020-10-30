@@ -13,16 +13,6 @@ const pageContent = {
     offersLabel: 'Angebote',
     neighbourhoodLabel: 'Bezirke',
     searchRestaurant: 'Suche',
-    offers: {
-      Food: 'Essen',
-      Wine: 'Wein',
-      Drinks: 'Getränke',
-      Giftcards: 'Gutscheine',      
-      Coffee: 'Kaffee',
-      Pastries: 'Gebäck',
-      Bread: 'Brot',
-      Beer: 'Bier',
-    },
     delivery: 'Lieferung',
     orderLabel: 'Anschauen und Bestellen',
   },
@@ -30,17 +20,7 @@ const pageContent = {
     title: 'Restaurants',
     offersLabel: 'Offers',
     neighbourhoodLabel: 'Neighbourhoods',
-    searchRestaurant: 'Search',
-    offers: {
-      Food: 'Food',
-      Wine: 'Wine',
-      Drinks: 'Drinks',
-      Giftcards: 'Gift Cards',      
-      Coffee: 'Coffee',
-      Pastries: 'Pastries',
-      Bread: 'Bread',
-      Beer: 'Beer',
-    },
+    searchRestaurant: 'Search', 
     delivery: 'Delivery',
     orderLabel: 'View and order',
   },
@@ -51,7 +31,7 @@ const ListItem = ({ restaurant, content }) => {
   const name = restaurant.name || undefined
   const address = restaurant.address || undefined
   const description = restaurant.description || undefined
-  const offers = restaurant.offerings || undefined
+  const offers = restaurant.categories || undefined
   const delivery = restaurant.delivery || false
   const phone = restaurant.phone || undefined
   const url = restaurant.url || undefined
@@ -81,7 +61,7 @@ const ListItem = ({ restaurant, content }) => {
                   key={offer}
                   className="inline-block font-medium text-xs sm:text-sm bg-teal px-2 py-1 m-1"
                 >
-                  {content.offers[offer]}
+                  {offer}
                 </li>
               ))}
             </ul>
@@ -137,7 +117,7 @@ class List extends React.Component {
           .filter(restaurant =>
             this.props.filterOffers && this.props.filterOffers.length
               ? this.props.filterOffers.every(offer =>
-                  restaurant.offerings.includes(offer)
+                  restaurant.categories.includes(offer)
                 )
               : true
           )
@@ -160,7 +140,7 @@ class List extends React.Component {
     )
   }
 }
-export default ({ restaurants, neighbourhoods }) => {
+export default ({ restaurants, neighbourhoods, offers }) => {
   const { language } = useContext(LanguageContext)
   const content = pageContent[language]
 
@@ -198,7 +178,7 @@ export default ({ restaurants, neighbourhoods }) => {
                     </label>
                   </div>
                   <div className="w-full flex flex-wrap items-center mb-4 sm:mb-0">
-                    {['Food', 'Wine', 'Drinks', 'Giftcards', 'Coffee', 'Pastries', 'Bread', 'Beer'].map(offer => {
+                    {offers.sort().map(offer => {
                       const isChecked = filterOffers.includes(offer)
                       const handleChange = () => {
                         if (isChecked) {
@@ -226,7 +206,7 @@ export default ({ restaurants, neighbourhoods }) => {
                             className="sr-only"
                           />
                           <span className="select-none">
-                            {content.offers[offer]}
+                            {offer}
                           </span>
                         </label>
                       )
@@ -307,7 +287,7 @@ export async function getStaticProps() {
     .select({
       maxRecords: 999999, // don't want to paginate...
       view: 'Grid view', // NOTE: changing the view name will break things
-      fields: ['name', 'address', 'description', 'offerings', 'delivery', 'phone', 'url', 'neighbourhood', 'email'],
+      fields: ['name', 'address', 'description', 'categories', 'delivery', 'phone', 'url', 'neighbourhood', 'email'],
       filterByFormula: "display = '1'",
     })
     .all()
@@ -327,7 +307,16 @@ export async function getStaticProps() {
     )
   )
 
-  return { props: { restaurants, neighbourhoods } }
+  const offers = Array.from(
+    new Set(
+      restaurants.reduce( (o, restaurant) => {
+        if(restaurant.categories != undefined) o.push(restaurant.categories)
+        return o
+      }, []).flat(Infinity)
+    )
+  )
+
+  return { props: { restaurants, neighbourhoods, offers } }
 }
 
 export function shuffle(arr) {

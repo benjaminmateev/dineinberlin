@@ -37,7 +37,7 @@ export async function getStaticProps() {
     .select({
       maxRecords: 999999, // don't want to paginate...
       view: 'Grid view', // NOTE: changing the view name will break things
-      fields: ['name', 'address', 'description', 'offerings', 'delivery', 'phone', 'url', 'neighbourhood', 'email', 'location'],
+      fields: ['name', 'address', 'description', 'categories', 'delivery', 'phone', 'url', 'neighbourhood', 'email', 'location'],
       filterByFormula: "display = '1'",
     })
     .all()

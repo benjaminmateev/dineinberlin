@@ -68,7 +68,7 @@ const Tooltip = ({ tooltip, setTooltip }) => {
       ? tooltip.description.slice(0, 280) + ' ...'
       : tooltip.description
     : undefined
-  const offerings = tooltip.offerings || undefined
+  const categories = tooltip.categories || undefined
   const delivery = tooltip.delivery || false
   const phone = tooltip.phone || undefined
   const url = tooltip.url || undefined
@@ -102,9 +102,9 @@ const Tooltip = ({ tooltip, setTooltip }) => {
 
               {name && <h3 className="text-base mb-2">{name}</h3>}
               {description && <p className="text-xs mb-3">{description}</p>}
-              {offerings && !!offerings.length && (
+              {categories && !!categories.length && (
                 <ul className="-m-1 mb-3">
-                  {offerings.map(label => (
+                  {categories.map(label => (
                     <li
                       key={label}
                       className="inline-block font-medium bg-sand px-2 py-1 m-1"
