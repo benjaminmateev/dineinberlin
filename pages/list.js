@@ -1,4 +1,5 @@
-import { useContext, useState } from 'react'
+import React, { Component } from 'react';
+import { useContext, useState, useEffect } from 'react'
 import Promise from 'promise-polyfill'
 import fetch from 'isomorphic-unfetch'
 
@@ -160,6 +161,7 @@ class List extends React.Component {
     )
   }
 }
+
 export default ({ restaurants, neighbourhoods }) => {
   const { language } = useContext(LanguageContext)
   const content = pageContent[language]
@@ -307,7 +309,7 @@ export async function getStaticProps() {
     .select({
       maxRecords: 999999, // don't want to paginate...
       view: 'Grid view', // NOTE: changing the view name will break things
-      fields: ['name', 'address', 'description', 'offerings', 'delivery', 'phone', 'url', 'neighbourhood', 'email'],
+      fields: ['name', 'address', 'description', 'categories', 'delivery', 'phone', 'url', 'neighbourhood', 'email'],
       filterByFormula: "display = '1'",
     })
     .all()
