@@ -1,9 +1,11 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { useContext } from 'react'
 import { LanguageContext } from '../components/LanguageSelector'
 import Head from '../components/Head'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
+import bicycleImage from '../public/assets/bicycle1_dineberlin.png'
 
 export default () => {
   const { language } = useContext(LanguageContext)
@@ -42,11 +44,13 @@ export default () => {
                 </Link>
               </div>
             </div>
-            <img
-              src={require('../public/assets/bicycle1_dineberlin.png')}
-              alt="Vin og sjov"
-              className="hidden md:block w-128"
-            />
+            <div className="hidden md:block w-128">
+              <Image
+                src={bicycleImage}
+                alt="Vin og sjov"
+                layout="responsive"
+              />
+            </div>
           </div>
         </main>
         <Footer />

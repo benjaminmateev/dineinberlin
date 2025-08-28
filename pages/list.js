@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { useContext, useState, useEffect } from 'react'
-import Promise from 'promise-polyfill'
-import fetch from 'isomorphic-unfetch'
-
+import Airtable from 'airtable'
 import { LanguageContext } from '../components/LanguageSelector'
 import Head from '../components/Head'
 import Nav from '../components/Nav'
@@ -297,10 +295,9 @@ export default ({ restaurants, neighbourhoods }) => {
 }
 
 export async function getStaticProps() {
-  const airtableApiKey = process.env.AIRTABLE_API_KEY
+  const airtableApiKey = process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN
   const airtableBaseKey = process.env.AIRTABLE_BASE_KEY
 
-  const Airtable = require('airtable')
   const airtable = new Airtable({
     apiKey: airtableApiKey,
   }).base(airtableBaseKey)

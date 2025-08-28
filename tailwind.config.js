@@ -1,5 +1,8 @@
 module.exports = {
-  purge: ['./components/**/*.js', './pages/**/*.js'],
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     colors: {
       // https://www.happyhues.co/palettes/17
@@ -39,32 +42,6 @@ module.exports = {
         '128': '32rem',
       },
     },
-    customForms: theme => ({
-      default: {
-        'checkbox, input, multiselect, radio, select, textarea': {
-          backgroundColor: theme('color.sand-light'),
-          borderColor: theme('colors.navy'),
-          borderRadius: theme('borderRadius.none'),
-          borderWidth: theme('borderWidth.2'),
-          '&:focus': {
-            borderColor: theme('colors.navy'),
-            boxShadow: theme('boxShadow.outline'),
-          },
-        },
-        'checkbox, radio': {
-          '&:checked': {
-            backgroundColor: theme('colors.navy'),
-          },
-        },
-        'input, multiselect, select, textarea': {
-          width: theme('width.full'),
-        },
-      },
-    }),
   },
-  variants: {
-    margin: ['responsive', 'last'],
-    textColor: ['responsive', 'hover', 'focus', 'group-hover'],
-  },
-  plugins: [require('@tailwindcss/custom-forms')],
+  plugins: [require('@tailwindcss/forms')],
 }

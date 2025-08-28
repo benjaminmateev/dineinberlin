@@ -1,6 +1,4 @@
-import Promise from 'promise-polyfill'
-import fetch from 'isomorphic-unfetch'
-
+import Airtable from 'airtable'
 import Head from '../components/Head'
 import Nav from '../components/Nav'
 import Map from '../components/Map'
@@ -20,7 +18,7 @@ export default ({ restaurants }) => {
 }
 
 export async function getStaticProps() {
-  const airtableApiKey = process.env.AIRTABLE_API_KEY
+  const airtableApiKey = process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN
   const airtableBaseKey = process.env.AIRTABLE_BASE_KEY
   // Reducing number of requests to Maps API
   const googleMapsApiKey =
@@ -28,7 +26,6 @@ export async function getStaticProps() {
       ? process.env.GOOGLE_MAPS_API_KEY
       : undefined
 
-  const Airtable = require('airtable')
   const airtable = new Airtable({
     apiKey: airtableApiKey,
   }).base(airtableBaseKey)
